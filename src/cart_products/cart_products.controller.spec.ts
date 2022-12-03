@@ -13,7 +13,7 @@ describe('CartProductsController', () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [CartProductsController],
       providers: [
-        CartProductsController,
+        CartProductsService,
         {
           provide: getRepositoryToken(CartProduct),
           useValue: {

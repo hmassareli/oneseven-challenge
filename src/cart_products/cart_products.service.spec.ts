@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { CartProduct } from './entities/cart_product.entity';
 import { CartProductsService } from './cart_products.service';
+import { ConfigService } from '@nestjs/config';
 
 describe('CartProductService', () => {
   let service: CartProductsService;
@@ -18,6 +19,7 @@ describe('CartProductService', () => {
             find: jest.fn().mockResolvedValue([mockCartProduct]),
           },
         },
+        ConfigService,
       ],
     }).compile();
 
