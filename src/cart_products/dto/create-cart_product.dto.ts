@@ -1,6 +1,0 @@
-export class CreateCartProductDto {
-  name: string;
-  img_url: string;
-  value: string;
-  product_id: number;
-}
