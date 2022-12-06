@@ -5,11 +5,7 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {
-      width: {
-        200: "40rem",
-      },
-    },
+    extend: {},
   },
   plugins: [],
   theme: {
