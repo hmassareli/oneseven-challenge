@@ -28,7 +28,10 @@
 
 ## Installation
 
+ - install postgres
 ```bash
+$ createdb oneseven-challenge
+$ npm run typeorm migration:run
 $ npm install
 ```
 
