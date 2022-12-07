@@ -29,11 +29,13 @@ export class CartProductsService {
     if (!cartProduct) {
       throw new NotFoundException('cart product not found');
     }
-    cartProduct.name = updateCartProductDto.name;
-    cartProduct.img_url = updateCartProductDto.img_url;
-    cartProduct.product_id = updateCartProductDto.product_id;
-    cartProduct.value = updateCartProductDto.value;
-    cartProduct.quantity = updateCartProductDto.quantity;
+    cartProduct.name = updateCartProductDto.name ?? cartProduct.name;
+    cartProduct.img_url = updateCartProductDto.img_url ?? cartProduct.img_url;
+    cartProduct.product_id =
+      updateCartProductDto.product_id ?? cartProduct.product_id;
+    cartProduct.value = updateCartProductDto.value ?? cartProduct.value;
+    cartProduct.quantity =
+      updateCartProductDto.quantity ?? cartProduct.quantity;
     return this.cartProductRepository.save(cartProduct);
   }
 
