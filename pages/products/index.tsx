@@ -8,7 +8,7 @@ const Products = ({ data }: { data: ProductProps[] }) => {
   return (
     <div className=" bg-gray-100">
       <h1>Products</h1>
-      <div className=" grid grid-cols-4">
+      <div className=" h-full grid md:grid-cols-4 sm:grid-cols-2">
         {data.map((product) => {
           return <Product key={uuid()} product={product} />;
         })}
