@@ -1,13 +1,19 @@
-import { ProductProps } from "../../components/Product/ProductProps";
+import { ProductProps } from "../../components/Product/@types";
 import { Product } from "../../components/Product";
-import { uuid } from "uuidv4";
+import { v4 as uuid } from "uuid";
 import { useState } from "react";
+import { IoBagHandleSharp } from "react-icons/io5";
+
 const Products = ({ data }: { data: ProductProps[] }) => {
   const [page, setPage] = useState(1);
-  console.log(data);
+  const [cart, setCart] = useState<ProductProps[]>([]);
   return (
     <div className=" bg-gray-100">
-      <h1>Products</h1>
+      <header className=" h-40 bg-slate-600 flex justify-between items-center px-20">
+        <h1 className=" text-4xl text-white">Products</h1>
+        <IoBagHandleSharp className=" text-white w-20 h-20 ml-auto cursor-pointer" />
+      </header>
+
       <div className=" h-full grid md:grid-cols-4 sm:grid-cols-2">
         {data.map((product) => {
           return <Product key={uuid()} product={product} />;

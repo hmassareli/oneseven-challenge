@@ -1,8 +1,8 @@
 import Image from "next/image";
-import { ProductProps } from "./ProductProps";
+import { ProductProps } from "./@types";
 const Product = ({ product }: { product: ProductProps }) => {
   return (
-    <div className=" bg-white flex max-w-[300px] min-w-[200px] flex-col items-center m-10 px-5 pt-5 rounded-lg">
+    <div className=" bg-white flex max-w-[300px] min-w-[250px] md:min-w-[300px] flex-col items-center m-auto my-10 px-5 pt-5 rounded-lg">
       <div className=" h-[250px] w-full relative overflow-hidden mb-2">
         <Image
           src={
