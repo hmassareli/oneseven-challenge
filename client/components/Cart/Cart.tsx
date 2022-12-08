@@ -58,21 +58,24 @@ const CartContent = ({ data }: { data: CartProductProps[] }) => {
   const formattedTotalPrice = priceFormatter(totalPrice);
 
   return (
-    <div className="CartContentContainer">
-      <div className="CartProduct">
+    <div className=" flex flex-col m-auto w-[500px] mt-10 p-10 h-[800px] bg-gray-200">
+      <div className=" flex flex-col gap-2">
         {cartIsNotEmpty ? (
           data.map((product) => (
-            <div className="product" key={product.id}>
-              <div className="product_image">
-                <Image src={product.img_url} width={100} height={100} alt="" />
+            <div className=" flex " key={product.id}>
+              <div className=" rounded-md overflow-hidden w-[150px] h-[150px] relative">
+                <Image src={product.img_url} layout="fill" alt="" />
               </div>
 
-              <div className="product-info">
-                <span>
-                  <p>{product.name}</p>
-                  <strong>{product.value}</strong>
-                </span>
+              <div className="  flex flex-col ml-5 justify-between">
+                <div>
+                  <p className=" text-3xl mt-4 font-medium">{product.name}</p>
+                  <div className=" text-green-700 font-bold text-4xl">
+                    {priceFormatter(product.value)}
+                  </div>
+                </div>
                 <button
+                  className=" mr-auto mb-4 text-red-700 text-2xl font-medium"
                   onClick={(event) => handleRemoveFromCart(event, product)}
                   aria-label="Remove product from cart"
                 >
