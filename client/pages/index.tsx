@@ -9,11 +9,11 @@ export default function Home() {
         <title>One Seven</title>
         <link rel="icon" href="/favicon.ico" />
         <meta
-          http-equiv="Cache-Control"
+          httpEquiv="Cache-Control"
           content="no-cache, no-store, must-revalidate"
         />
-        <meta http-equiv="Pragma" content="no-cache" />
-        <meta http-equiv="Expires" content="0" />
+        <meta httpEquiv="Pragma" content="no-cache" />
+        <meta httpEquiv="Expires" content="0" />
       </Head>
       <main className="h-screen flex justify-center text-black">
         <section className="bg-white h-3/6 w-[600px] mt-10 rounded-lg p-10 shadow-2xl">

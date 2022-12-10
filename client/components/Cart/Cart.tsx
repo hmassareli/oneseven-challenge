@@ -1,36 +1,34 @@
 import axios from "axios";
 import Image from "next/image";
-import Router from "next/router";
-import { MouseEvent, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import { CartProductProps } from "../../pages/products/@types";
 import { priceFormatter } from "../../utils/formatter";
-
 import { loadStripe } from "@stripe/stripe-js";
+import { getCheckoutSession } from "../../services.api";
+import { useRouter } from "next/router";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
 );
 
 const CartContent = ({ data }: { data: CartProductProps[] }) => {
+  const router = useRouter();
+  const [cartProducts, setCartProducts] = useState<CartProductProps[]>(data);
   const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] =
     useState(false);
 
   const removeFromCart = (product: CartProductProps) => {
     const newCart = data.filter((item) => item.id !== product.id);
+    setCartProducts(newCart);
   };
 
   const handleBuyProduct = async () => {
     try {
       setIsCreatingCheckoutSession(true);
 
-      const response = await axios
-        .post(`/api/checkout_sessions`, {
-          products: data,
-        })
-        .then((res) => res.data);
-      const { url } = response;
-      // go to checkout page
-      window.location.href = url;
+      const checkout = await getCheckoutSession(cartProducts);
+      const { url } = checkout;
+      router.push(url);
     } catch (error) {
       setIsCreatingCheckoutSession(false);
       console.log(`Error: ${error}`);
