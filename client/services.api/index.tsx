@@ -2,11 +2,15 @@ import { CartProductProps } from "../pages/products/@types";
 
 import axios from "axios";
 
-export const deleteProduct = async (id: string) => {
-  const res = await axios.delete(
-    `${process.env.NEXT_PUBLIC_API_URL}/CartProducts/${id}`
-  );
-  return res.data;
+export const deleteProduct = async (id: number) => {
+  try {
+    const res = await axios.delete(
+      `${process.env.NEXT_PUBLIC_API_URL}/CartProducts/${id}`
+    );
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const getCheckoutSession = async (data: CartProductProps[]) => {

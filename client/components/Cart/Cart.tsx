@@ -4,7 +4,7 @@ import { MouseEvent, useEffect, useState } from "react";
 import { CartProductProps } from "../../pages/products/@types";
 import { priceFormatter } from "../../utils/formatter";
 import { loadStripe } from "@stripe/stripe-js";
-import { getCheckoutSession } from "../../services.api";
+import { deleteProduct, getCheckoutSession } from "../../services.api";
 import { useRouter } from "next/router";
 
 const stripePromise = loadStripe(
@@ -17,9 +17,14 @@ const CartContent = ({ data }: { data: CartProductProps[] }) => {
   const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] =
     useState(false);
 
-  const removeFromCart = (product: CartProductProps) => {
+  const removeFromCart = async (product: CartProductProps) => {
     const newCart = data.filter((item) => item.id !== product.id);
     setCartProducts(newCart);
+    const res = await deleteProduct(product.id);
+    // add product again if the request fails
+    if (!res) {
+      setCartProducts((prev) => [...prev, product]);
+    }
   };
 
   const handleBuyProduct = async () => {
@@ -46,11 +51,11 @@ const CartContent = ({ data }: { data: CartProductProps[] }) => {
 
     removeFromCart(product);
   };
-  const totalPrice = data.reduce((acc, product) => {
+  const totalPrice = cartProducts.reduce((acc, product) => {
     return acc + product.value * product.quantity;
   }, 0);
   const cartIsNotEmpty = data.length > 0;
-  const cartQuantity = data.reduce((acc, product) => {
+  const cartQuantity = cartProducts.reduce((acc, product) => {
     return acc + product.quantity;
   }, 0);
   const formattedTotalPrice = priceFormatter(totalPrice);
@@ -59,7 +64,7 @@ const CartContent = ({ data }: { data: CartProductProps[] }) => {
     <div className=" flex flex-col m-auto w-[500px] mt-10 p-10 h-[800px] bg-gray-200">
       <div className=" flex flex-col gap-2">
         {cartIsNotEmpty ? (
-          data.map((product) => (
+          cartProducts.map((product) => (
             <div className=" flex " key={product.id}>
               <div className=" rounded-md overflow-hidden w-[150px] h-[150px] relative">
                 <Image src={product.img_url} layout="fill" alt="" />

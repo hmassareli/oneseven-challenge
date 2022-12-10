@@ -39,7 +39,12 @@ export class CartProductsService {
     return this.cartProductRepository.save(cartProduct);
   }
 
-  remove(id: number) {
+  async remove(id: number) {
+    // check if cart product exists
+    const cartProduct = await this.cartProductRepository.findOneBy({ id });
+    if (!cartProduct) {
+      throw new NotFoundException('cart product not found');
+    }
     this.cartProductRepository.delete(id);
   }
 }
