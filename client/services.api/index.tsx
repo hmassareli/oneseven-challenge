@@ -1,4 +1,4 @@
-import { CartProductProps } from "../pages/products/@types";
+import { CartProductProps, PostProductProps } from "../pages/products/@types";
 
 import axios from "axios";
 
@@ -26,4 +26,26 @@ export const getProductData = async (limit: number) => {
     `${process.env.FAKE_STORE_API_URL}/api/v1/products?offset=0&limit=${limit}`
   );
   return res.data;
+};
+export const postProduct = async (data: PostProductProps) => {
+  try {
+    const res = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/CartProducts`,
+      data
+    );
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getCartProducts = async () => {
+  try {
+    const res = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/CartProducts`
+    );
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
 };

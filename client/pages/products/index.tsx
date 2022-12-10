@@ -5,8 +5,15 @@ import { useState } from "react";
 import { IoBagHandleSharp } from "react-icons/io5";
 import Link from "next/link";
 import axios from "axios";
-import { getProductData } from "../../services.api";
-const Products = ({ data }: { data: ProductProps[] }) => {
+import { getProductData, getCartProducts } from "../../services.api";
+import { CartProductProps } from "./@types";
+const Products = ({
+  data,
+  cartProducts,
+}: {
+  data: ProductProps[];
+  cartProducts: CartProductProps[];
+}) => {
   const [page, setPage] = useState(1);
   const [cart, setCart] = useState<ProductProps[]>([]);
   return (
@@ -20,7 +27,13 @@ const Products = ({ data }: { data: ProductProps[] }) => {
 
       <div className=" h-full grid md:grid-cols-4 sm:grid-cols-2">
         {data.map((product) => {
-          return <Product key={uuid()} product={product} />;
+          return (
+            <Product
+              key={uuid()}
+              product={product}
+              cartProducts={cartProducts}
+            />
+          );
         })}
       </div>
     </div>
@@ -28,7 +41,8 @@ const Products = ({ data }: { data: ProductProps[] }) => {
 };
 export async function getServerSideProps() {
   const data = await getProductData(12);
+  const cartProducts = await getCartProducts();
 
-  return { props: { data } };
+  return { props: { data, cartProducts: cartProducts?.data } };
 }
 export default Products;
