@@ -18,12 +18,13 @@ const CartContent = ({ data }: { data: CartProductProps[] }) => {
     useState(false);
 
   const removeFromCart = async (product: CartProductProps) => {
+    const oldCart = cartProducts;
     const newCart = data.filter((item) => item.id !== product.id);
+
     setCartProducts(newCart);
     const res = await deleteProduct(product.id);
-    // add product again if the request fails
     if (!res) {
-      setCartProducts((prev) => [...prev, product]);
+      setCartProducts(oldCart);
     }
   };
 

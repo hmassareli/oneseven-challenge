@@ -15,7 +15,15 @@ const Products = ({
   cartProducts: CartProductProps[];
 }) => {
   const [page, setPage] = useState(1);
-  const [cart, setCart] = useState<ProductProps[]>([]);
+  const [cart, setCart] = useState<CartProductProps[]>(cartProducts);
+
+  const updateCart = async () => {
+    const data = await getCartProducts();
+    if (data) {
+      setCart(data.data);
+    }
+  };
+
   return (
     <div className=" bg-gray-100">
       <header className=" h-40 bg-slate-600 flex justify-between items-center px-20">
@@ -31,7 +39,8 @@ const Products = ({
             <Product
               key={uuid()}
               product={product}
-              cartProducts={cartProducts}
+              cartProducts={cart}
+              updateCartProducts={updateCart}
             />
           );
         })}
@@ -41,8 +50,8 @@ const Products = ({
 };
 export async function getServerSideProps() {
   const data = await getProductData(12);
-  const cartProducts = await getCartProducts();
+  const cartProducts = (await getCartProducts()) || [];
 
-  return { props: { data, cartProducts: cartProducts?.data } };
+  return { props: { data, cartProducts: cartProducts } };
 }
 export default Products;

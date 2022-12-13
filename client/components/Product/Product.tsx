@@ -5,9 +5,11 @@ import { ProductProps } from "./@types";
 const Product = ({
   product,
   cartProducts,
+  updateCartProducts,
 }: {
   product: ProductProps;
   cartProducts: CartProductProps[];
+  updateCartProducts: () => void;
 }) => {
   const handleAddToCart = (product: ProductProps) => async () => {
     await postProduct({
@@ -17,19 +19,18 @@ const Product = ({
       img_url: product.images[0],
       quantity: 1,
     });
-    // reload the page
-    window.location.reload();
+    updateCartProducts();
   };
 
   const cartProduct = cartProducts.find(
     (cartProduct) => cartProduct.product_id === product.id
   );
+  console.log(product.images[0], "product.images[0]");
   return (
     <div className=" bg-white flex max-w-[300px] min-w-[250px] md:min-w-[300px] flex-col items-center m-auto my-10 px-5 pt-5 rounded-lg">
       <div className=" h-[250px] w-full relative overflow-hidden mb-2">
         <Image
           src={
-            // uses a random image from unsplash when there is not image
             product.images[0]
               ? product.images[0]
               : `https://api.lorem.space/image/furniture?w=640&h=480&r=${Math.floor(
