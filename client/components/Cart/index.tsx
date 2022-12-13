@@ -1,3 +1,3 @@
-import CartContent from "./Cart";
+import CartContent from "./CartContent";
 
 export default CartContent;

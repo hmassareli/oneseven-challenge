@@ -19,7 +19,7 @@ const Products = ({
 
   const updateCart = async () => {
     const data = await getCartProducts();
-    setCart(data);
+    setCart(data || []);
   };
 
   return (

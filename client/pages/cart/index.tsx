@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { uuid } from "uuidv4";
+import { v4 } from "uuid";
 import CartContent from "../../components/Cart";
 import { getCartProducts } from "../../services.api";
 import { CartProductProps } from "../products/@types";
@@ -14,7 +14,7 @@ const Cart = ({ data }: { data: CartProductProps[] }) => {
   return (
     <div className=" bg-gray-100 w-full h-full">
       <CartContent
-        key={uuid()}
+        key={v4()}
         refetch={refetchCartProducts}
         data={cartProducts}
       />
@@ -24,6 +24,7 @@ const Cart = ({ data }: { data: CartProductProps[] }) => {
 
 export async function getServerSideProps() {
   const data = await getCartProducts();
+
   return { props: { data } };
 }
 export default Cart;
