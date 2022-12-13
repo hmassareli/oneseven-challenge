@@ -22,10 +22,9 @@ const Product = ({
     updateCartProducts();
   };
 
-  const cartProduct = cartProducts.find(
+  const isProductOnCart = !!cartProducts.find(
     (cartProduct) => cartProduct.product_id === product.id
   );
-  console.log(product.images[0], "product.images[0]");
   return (
     <div className=" bg-white flex max-w-[300px] min-w-[250px] md:min-w-[300px] flex-col items-center m-auto my-10 px-5 pt-5 rounded-lg">
       <div className=" h-[250px] w-full relative overflow-hidden mb-2">
@@ -51,7 +50,7 @@ const Product = ({
           </p>
         </div>
         <div>
-          {cartProduct ? (
+          {isProductOnCart ? (
             <button className="w-full mb-5">
               <p className=" text-white text-2xl bg-slate-600 p-3 mt-auto">
                 Added to cart

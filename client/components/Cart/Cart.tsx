@@ -11,21 +11,20 @@ const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
 );
 
-const CartContent = ({ data }: { data: CartProductProps[] }) => {
+const CartContent = ({
+  data: cartProducts,
+  refetch,
+}: {
+  data: CartProductProps[];
+  refetch: () => void;
+}) => {
   const router = useRouter();
-  const [cartProducts, setCartProducts] = useState<CartProductProps[]>(data);
   const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] =
     useState(false);
 
   const removeFromCart = async (product: CartProductProps) => {
-    const oldCart = cartProducts;
-    const newCart = data.filter((item) => item.id !== product.id);
-
-    setCartProducts(newCart);
     const res = await deleteProduct(product.id);
-    if (!res) {
-      setCartProducts(oldCart);
-    }
+    refetch();
   };
 
   const handleBuyProduct = async () => {
@@ -55,14 +54,14 @@ const CartContent = ({ data }: { data: CartProductProps[] }) => {
   const totalPrice = cartProducts.reduce((acc, product) => {
     return acc + product.value * product.quantity;
   }, 0);
-  const cartIsNotEmpty = data.length > 0;
+  const cartIsNotEmpty = cartProducts.length > 0;
   const cartQuantity = cartProducts.reduce((acc, product) => {
     return acc + product.quantity;
   }, 0);
   const formattedTotalPrice = priceFormatter(totalPrice);
 
   return (
-    <div className=" flex flex-col m-auto w-[500px] mt-10 p-10 h-[800px] bg-gray-200">
+    <div className=" flex flex-col m-auto w-[500px] mt-10 p-10 h-[800px] bg-white">
       <div className=" flex flex-col gap-2">
         {cartIsNotEmpty ? (
           cartProducts.map((product) => (

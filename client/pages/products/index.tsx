@@ -19,9 +19,7 @@ const Products = ({
 
   const updateCart = async () => {
     const data = await getCartProducts();
-    if (data) {
-      setCart(data.data);
-    }
+    setCart(data);
   };
 
   return (
@@ -50,8 +48,8 @@ const Products = ({
 };
 export async function getServerSideProps() {
   const data = await getProductData(12);
-  const cartProducts = (await getCartProducts()) || [];
+  const cartProducts = await getCartProducts();
 
-  return { props: { data, cartProducts: cartProducts } };
+  return { props: { data, cartProducts: cartProducts || [] } };
 }
 export default Products;
