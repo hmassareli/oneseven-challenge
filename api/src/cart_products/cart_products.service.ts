@@ -40,6 +40,9 @@ export class CartProductsService {
     cartProduct.value = updateCartProductDto.value ?? cartProduct.value;
     cartProduct.quantity =
       updateCartProductDto.quantity ?? cartProduct.quantity;
+    cartProduct.brand = updateCartProductDto.brand ?? cartProduct.brand;
+    cartProduct.category =
+      updateCartProductDto.category ?? cartProduct.category;
     return this.cartProductRepository.save(cartProduct);
   }
 

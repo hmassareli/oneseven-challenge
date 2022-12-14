@@ -19,4 +19,10 @@ export class CartProduct {
 
   @Column()
   quantity: number;
+
+  @Column()
+  brand: string;
+
+  @Column()
+  category: string;
 }

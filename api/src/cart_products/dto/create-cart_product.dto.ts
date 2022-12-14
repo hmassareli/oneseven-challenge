@@ -4,4 +4,6 @@ export class CreateCartProductDto {
   value: string;
   product_id: number;
   quantity: number;
+  brand: string;
+  category: string;
 }

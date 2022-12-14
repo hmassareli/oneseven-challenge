@@ -43,6 +43,8 @@ describe('CartProductsController', () => {
             'https://www.google.com/url?sa=i&url=https%3A%2F%2Fbr.freepik.com%2Ffotos-vetores-gratis%2Fcomputador&psig=AOvVaw2uIHE0hiBonMFFcvgZjfoP&ust=1670109591237000&source=images&cd=vfe&ved=0CA8QjRxqFwoTCOjf3ZiJ3PsCFQAAAAAdAAAAABAE',
           value: '10.00',
           quantity: 1,
+          brand: 'Dell',
+          category: 'Computadores',
         },
       ];
       jest

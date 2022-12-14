@@ -11,7 +11,9 @@ export class createCartproductsTable1670006629280
                 img_url text,
                 value text,
                 product_id bigserial,
-                quantity bigserial
+                quantity bigserial,
+                brand text,
+                category text,
             );
         `);
   }
