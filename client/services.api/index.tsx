@@ -49,3 +49,15 @@ export const getCartProducts = async () => {
     console.log(error);
   }
 };
+
+export const addUnitToProduct = async (id: number, quantity: number) => {
+  try {
+    const res = await axios.put(
+      `${process.env.NEXT_PUBLIC_API_URL}/CartProducts/${id}`,
+      { quantity }
+    );
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

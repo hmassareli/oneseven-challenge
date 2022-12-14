@@ -4,9 +4,14 @@ import { MouseEvent, useEffect, useState } from "react";
 import { CartProductProps } from "../../pages/products/@types";
 import { priceFormatter } from "../../utils/formatter";
 import { loadStripe } from "@stripe/stripe-js";
-import { deleteProduct, getCheckoutSession } from "../../services.api";
+import {
+  deleteProduct,
+  getCheckoutSession,
+  addUnitToProduct,
+} from "../../services.api";
 import { useRouter } from "next/router";
-
+import { FaPlus } from "react-icons/fa";
+import { FaMinus } from "react-icons/fa";
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
 );
@@ -21,11 +26,6 @@ const CartContent = ({
   const router = useRouter();
   const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] =
     useState(false);
-
-  const removeFromCart = async (product: CartProductProps) => {
-    const res = await deleteProduct(product.id);
-    refetch();
-  };
 
   const handleBuyProduct = async () => {
     try {
@@ -42,14 +42,18 @@ const CartContent = ({
       );
     }
   };
+  const handleAddOne = async (product: CartProductProps) => {
+    const res = await addUnitToProduct(product.id, product.quantity + 1);
+    refetch();
+  };
+  const handleRemoveOne = async (product: CartProductProps) => {
+    const res = await addUnitToProduct(product.id, product.quantity - 1);
+    refetch();
+  };
 
-  const handleRemoveFromCart = async (
-    event: MouseEvent<HTMLButtonElement>,
-    product: CartProductProps
-  ) => {
-    event.preventDefault();
-
-    removeFromCart(product);
+  const handleRemoveFromCart = async (product: CartProductProps) => {
+    const res = await deleteProduct(product.id);
+    refetch();
   };
   const totalPrice = cartProducts.reduce((acc, product) => {
     return acc + product.value * product.quantity;
@@ -77,9 +81,25 @@ const CartContent = ({
                     {priceFormatter(product.value)}
                   </div>
                 </div>
+
+                <div className=" flex items-center">
+                  <FaMinus
+                    className="text-2 hover: cursor-pointer"
+                    onClick={() => handleRemoveOne(product)}
+                  />
+                  <input
+                    className=" w-7 text-center font-bold text-xl"
+                    type="number"
+                    value={product.quantity}
+                  />{" "}
+                  <FaPlus
+                    className="text-2 hover: cursor-pointer"
+                    onClick={() => handleAddOne(product)}
+                  />
+                </div>
                 <button
                   className=" mr-auto mb-4 text-red-700 text-2xl font-medium"
-                  onClick={(event) => handleRemoveFromCart(event, product)}
+                  onClick={(event) => handleRemoveFromCart(product)}
                   aria-label="Remove product from cart"
                 >
                   Remove
