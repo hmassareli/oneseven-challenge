@@ -31,7 +31,7 @@
  - install postgres
 ```bash
 $ createdb oneseven-challenge
-$ npm run typeorm migration:run
+$ npm run typeorm migration:run (automatically runs when you start the application)
 $ npm install
 ```
 
