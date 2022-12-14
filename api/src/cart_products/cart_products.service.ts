@@ -17,7 +17,11 @@ export class CartProductsService {
   }
 
   findAll() {
-    return this.cartProductRepository.find();
+    return this.cartProductRepository.find({
+      order: {
+        id: 'ASC',
+      },
+    });
   }
 
   findOne(id: number) {
