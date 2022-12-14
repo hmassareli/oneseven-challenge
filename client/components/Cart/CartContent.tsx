@@ -87,11 +87,9 @@ const CartContent = ({
                     className="text-2 hover: cursor-pointer"
                     onClick={() => handleRemoveOne(product)}
                   />
-                  <input
-                    className=" w-7 text-center font-bold text-xl"
-                    type="number"
-                    value={product.quantity}
-                  />{" "}
+                  <p className=" w-7 text-center font-bold text-xl">
+                    {product.quantity}
+                  </p>
                   <FaPlus
                     className="text-2 hover: cursor-pointer"
                     onClick={() => handleAddOne(product)}
