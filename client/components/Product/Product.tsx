@@ -2,6 +2,7 @@ import Image from "next/image";
 import { CartProductProps } from "../../pages/products/@types";
 import { postProduct } from "../../services.api";
 import { ProductProps } from "./@types";
+import { MouseEvent } from "react";
 const Product = ({
   product,
   cartProducts,
@@ -11,7 +12,7 @@ const Product = ({
   cartProducts: CartProductProps[];
   updateCartProducts: () => void;
 }) => {
-  const handleAddToCart = (product: ProductProps) => async () => {
+  const handleAddToCart = async (product: ProductProps) => {
     await postProduct({
       product_id: product.id,
       name: product.title,
@@ -29,13 +30,7 @@ const Product = ({
     <div className=" bg-white flex max-w-[300px] min-w-[250px] md:min-w-[300px] flex-col items-center m-auto my-10 px-5 pt-5 rounded-lg">
       <div className=" h-[250px] w-full relative overflow-hidden mb-2">
         <Image
-          src={
-            product.images[0]
-              ? product.images[0]
-              : `https://api.lorem.space/image/furniture?w=640&h=480&r=${Math.floor(
-                  Math.random() * 1000
-                )}`
-          }
+          src={product.images[0]}
           className="object-cover"
           alt="product image"
           layout="fill"
@@ -57,7 +52,10 @@ const Product = ({
               </p>
             </button>
           ) : (
-            <button className="w-full mb-5" onClick={handleAddToCart(product)}>
+            <button
+              className="w-full mb-5"
+              onClick={(event) => handleAddToCart(product)}
+            >
               <p className=" text-white text-2xl bg-black p-3 mt-auto hover:bg-gray-800">
                 Add to cart
               </p>

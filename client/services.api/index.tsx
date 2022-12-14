@@ -23,9 +23,9 @@ export const getCheckoutSession = async (data: CartProductProps[]) => {
 };
 export const getProductData = async (limit: number) => {
   const res = await axios.get(
-    `${process.env.FAKE_STORE_API_URL}/api/v1/products?offset=0&limit=${limit}`
+    `${process.env.FAKE_STORE_API_URL}/products?skip=0&limit=${limit}`
   );
-  return res.data;
+  return res.data.products;
 };
 export const postProduct = async (data: PostProductProps) => {
   try {

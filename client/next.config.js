@@ -6,19 +6,11 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "api.lorem.space",
+        hostname: "https://dummyjson.com",
       },
       {
         protocol: "https",
-        hostname: "api.escuelajs.co",
-      },
-      {
-        protocol: "https",
-        hostname: "cdn.lorem.space",
-      },
-      {
-        protocol: "https",
-        hostname: "source.unsplash.com",
+        hostname: "i.dummyjson.com",
       },
     ],
   },
