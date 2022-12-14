@@ -12,13 +12,13 @@ const Cart = ({ data }: { data: CartProductProps[] }) => {
     setCartProducts(newData);
   };
   return (
-    <div className=" bg-gray-100 w-full h-full">
+    <main className=" bg-slate-100 overflow-auto min-h-screen">
       <CartContent
         key={v4()}
         refetch={refetchCartProducts}
         data={cartProducts}
       />
-    </div>
+    </main>
   );
 };
 

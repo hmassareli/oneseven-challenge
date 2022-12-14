@@ -19,6 +19,8 @@ const Product = ({
       value: product.price,
       img_url: product.images[0],
       quantity: 1,
+      category: product.category,
+      brand: product.brand,
     });
     updateCartProducts();
   };
@@ -38,16 +40,16 @@ const Product = ({
       </div>
       <div className="[&>*]:w-full w-full flex-grow flex justify-between flex-col">
         <div>
-          <p className=" text-gray-400">{product.category.name}</p>
-          <h1 className=" text-2xl">{product.title}</h1>
+          <p className=" text-gray-500 text-[1.1rem]">{product.category}</p>
+          <h1 className=" text-2xl font-semibold">{product.title}</h1>
           <p className=" text-green-500 font-semibold text-2xl mb-2">
             ${product.price}
           </p>
         </div>
         <div>
           {isProductOnCart ? (
-            <button className="w-full mb-5">
-              <p className=" text-white text-2xl bg-slate-600 p-3 mt-auto">
+            <button className="w-full mb-5 ">
+              <p className=" text-white text-2xl bg-slate-600 p-3 mt-auto rounded-md">
                 Added to cart
               </p>
             </button>
@@ -56,7 +58,7 @@ const Product = ({
               className="w-full mb-5"
               onClick={(event) => handleAddToCart(product)}
             >
-              <p className=" text-white text-2xl bg-black p-3 mt-auto hover:bg-gray-800">
+              <p className=" text-white text-2xl bg-black p-3 mt-auto hover:bg-gray-800 rounded-md">
                 Add to cart
               </p>
             </button>

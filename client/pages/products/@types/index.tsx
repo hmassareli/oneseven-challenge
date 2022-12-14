@@ -5,6 +5,8 @@ export type CartProductProps = {
   value: number;
   product_id: number;
   quantity: number;
+  category: string;
+  brand: string;
 };
 
 export type PostProductProps = {
@@ -13,4 +15,6 @@ export type PostProductProps = {
   value: number;
   img_url: string;
   quantity: number;
+  category: string;
+  brand: string;
 };

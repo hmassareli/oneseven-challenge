@@ -12,6 +12,8 @@ import {
 import { useRouter } from "next/router";
 import { FaPlus } from "react-icons/fa";
 import { FaMinus } from "react-icons/fa";
+//import exit icon from react-icons
+import { FaTimes } from "react-icons/fa";
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
 );
@@ -65,44 +67,58 @@ const CartContent = ({
   const formattedTotalPrice = priceFormatter(totalPrice);
 
   return (
-    <div className=" flex flex-col m-auto w-[500px] mt-10 p-10 h-[800px] bg-white">
-      <div className=" flex flex-col gap-2">
+    <div className=" flex flex-col gap-10 justify-between m-auto w-[600px] mt-10 rounded-lg p-10 min-h-[800px] bg-white">
+      <div className=" flex flex-col gap-4">
         {cartIsNotEmpty ? (
           cartProducts.map((product) => (
-            <div className=" flex " key={product.id}>
+            <div className=" flex justify-between" key={product.id}>
               <div className=" rounded-md overflow-hidden w-[150px] h-[150px] relative">
                 <Image src={product.img_url} layout="fill" alt="" />
               </div>
 
-              <div className="  flex flex-col ml-5 justify-between">
+              <div className="  flex flex-col ml-5 gap-2">
                 <div>
-                  <p className=" text-3xl mt-4 font-medium">{product.name}</p>
-                  <div className=" text-green-700 font-bold text-4xl">
-                    {priceFormatter(product.value)}
-                  </div>
+                  <p className=" text-3xl text-gray-800 mt-2 font-medium">
+                    {product.name}
+                  </p>
+                </div>
+                <div className=" font-bold text-gray-900 text-3xl">
+                  {priceFormatter(product.value)}
+                </div>
+                <div className=" flex items-center font-medium text-gray-700 text-xl">
+                  <p className=" ">Brand:&nbsp;</p>
+                  <p className=" ">{product.brand}</p>
                 </div>
 
                 <div className=" flex items-center">
-                  <FaMinus
-                    className="text-2 hover: cursor-pointer"
-                    onClick={() => handleRemoveOne(product)}
-                  />
-                  <p className=" w-7 text-center font-bold text-xl">
-                    {product.quantity}
+                  <p className=" font-medium text-gray-700 text-xl">
+                    Quantity:&nbsp;
                   </p>
-                  <FaPlus
-                    className="text-2 hover: cursor-pointer"
-                    onClick={() => handleAddOne(product)}
-                  />
+                  <div className=" flex ml-4 items-center justify-center w-28">
+                    <div className=" border flex hover: cursor-pointer rounded-full bg-slate-100 w-8 h-8 ">
+                      <FaMinus
+                        className="text-1 hover: cursor-pointer m-auto"
+                        onClick={() => handleRemoveOne(product)}
+                      />
+                    </div>
+
+                    <p className=" w-7 m-auto text-center font-bold text-xl">
+                      {product.quantity}
+                    </p>
+                    <div className=" border flex hover: cursor-pointer rounded-full bg-slate-100 w-8 h-8">
+                      <FaPlus
+                        className="w-6 m-auto"
+                        onClick={() => handleAddOne(product)}
+                      />
+                    </div>
+                  </div>
                 </div>
-                <button
-                  className=" mr-auto mb-4 text-red-700 text-2xl font-medium"
-                  onClick={(event) => handleRemoveFromCart(product)}
-                  aria-label="Remove product from cart"
-                >
-                  Remove
-                </button>
               </div>
+              <FaTimes
+                className=" text-zinc-900 text-2xl m-0 ml-auto font-medium mt-1 hover: cursor-pointer"
+                onClick={(event) => handleRemoveFromCart(product)}
+                aria-label="Remove product from cart"
+              />
             </div>
           ))
         ) : (
@@ -110,32 +126,28 @@ const CartContent = ({
         )}
       </div>
 
-      <div>
-        <table>
-          <tbody>
-            <tr>
-              <td>Quantity</td>
-              <td>
-                {cartQuantity} ite{cartQuantity > 1 ? "ms" : "m"}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Total</strong>
-              </td>
-              <td>
-                <strong>{formattedTotalPrice}</strong>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div className=" w-full rounded-lg text-slate-800">
+        <div className=" flex justify-between mb-2">
+          <p className=" text-2xl font-bold">Quantity:</p>
+
+          <p className=" font-medium text-xl">
+            {cartQuantity} ite{cartQuantity > 1 ? "ms" : "m"}
+          </p>
+        </div>
+
+        <div className=" flex justify-between mb-2">
+          <p className=" text-2xl font-bold">Total:</p>
+
+          <p className=" font-medium text-xl">{formattedTotalPrice}</p>
+        </div>
 
         <button
+          className=" w-full bg-zinc-900 text-white text-2xl font-bold py-4 rounded-lg mt-5"
           disabled={isCreatingCheckoutSession}
           onClick={handleBuyProduct}
           aria-label="Finish Purchase"
         >
-          Finish purchase
+          Checkout
         </button>
       </div>
     </div>
