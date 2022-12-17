@@ -49,8 +49,10 @@ const CartContent = ({
     refetch();
   };
   const handleRemoveOne = async (product: CartProductProps) => {
-    const res = await addUnitToProduct(product.id, product.quantity - 1);
-    refetch();
+    if (product.quantity > 1) {
+      const res = await addUnitToProduct(product.id, product.quantity - 1);
+      refetch();
+    }
   };
 
   const handleRemoveFromCart = async (product: CartProductProps) => {
