@@ -69,7 +69,7 @@ const CartContent = ({
   const formattedTotalPrice = priceFormatter(totalPrice);
 
   return (
-    <div className=" flex flex-col gap-10 justify-between m-auto w-[600px] mt-10 rounded-lg p-10 min-h-[800px] bg-white">
+    <div className=" flex flex-col gap-10 justify-between m-auto w-full md:w-[600px] mt-10 rounded-lg p-10 min-h-[800px] bg-white">
       <div className=" flex flex-col gap-4">
         {cartIsNotEmpty ? (
           cartProducts.map((product) => (
