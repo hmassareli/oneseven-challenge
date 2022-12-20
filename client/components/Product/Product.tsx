@@ -30,12 +30,13 @@ const Product = ({
   );
   return (
     <div className=" bg-white flex max-w-[300px] min-w-[250px] md:min-w-[300px] flex-col items-center m-auto my-10 px-5 pt-5 rounded-lg">
-      <div className=" h-[250px] w-full relative overflow-hidden mb-2">
+      <div className=" h-[250px] w-full relative overflow-hidden flex mb-2">
         <Image
           src={product.images[0]}
           className="object-cover"
           alt="product image"
-          layout="fill"
+          width={250}
+          height={250}
         />
       </div>
       <div className="[&>*]:w-full w-full flex-grow flex justify-between flex-col">

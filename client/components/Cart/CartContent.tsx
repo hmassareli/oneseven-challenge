@@ -75,7 +75,7 @@ const CartContent = ({
           cartProducts.map((product) => (
             <div className=" flex justify-between" key={product.id}>
               <div className=" rounded-md overflow-hidden w-[150px] h-[150px] relative">
-                <Image src={product.img_url} layout="fill" alt="" />
+                <Image src={product.img_url} width={300} height={300} alt="" />
               </div>
 
               <div className="  flex flex-col ml-5 gap-2">
